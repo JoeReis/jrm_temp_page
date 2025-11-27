@@ -52,12 +52,18 @@
             margin-bottom: 2rem;
             letter-spacing: -0.03em;
             color: #0a0a0a;
-            animation: breathe 4s ease-in-out infinite;
+            animation: breathe 6s ease-in-out infinite;
         }
 
         @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.015); }
+            0%, 100% { 
+                transform: scale(1);
+                color: #0a0a0a;
+            }
+            50% { 
+                transform: scale(1.015);
+                color: #e0dfdf;
+            }
         }
 
         .tagline {
@@ -116,7 +122,7 @@
     <div class="container">
         <div class="logo">Practical Data Media</div>
         <h1>Something new is coming.</h1>
-        <p class="tagline">Education and media for data practitioners who build real systems.</p>
+        <p class="tagline">Practical education and media for data practitioners who build in the real world.</p>
         <p class="credit">From the author of <em>Fundamentals of Data Engineering</em></p>
         <span class="status">Coming 2026</span>
     </div>
