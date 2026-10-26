@@ -32,6 +32,9 @@ External sources used for the launch pass:
 
 Share metadata uses https://practicaldata.media/ and assets/social-card.jpg.
 The share image is 1200 x 630. Favicons, robots.txt, and sitemap.xml are included.
+Icons are resized from assets/PD-Mark-on-white-2000w.jpg with square white padding:
+assets/favicon.png (48px), assets/favicon.ico (16/32/48px), and
+assets/apple-touch-icon.png (180px). The original mark is preserved.
 Page, Open Graph, and Twitter titles and descriptions describe the company.
 JSON-LD identifies the Organization, its founder, the WebSite, and the WebPage.
 Only verified public details are included; keep markup aligned with visible copy.
