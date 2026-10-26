@@ -13,9 +13,8 @@ corrected book PNG are retained as source assets. The book's credit reads
 
 Book proposals link to the Google Form at https://forms.gle/8eqnfxzNjoAT2Thw6.
 Errata and error submissions link to https://forms.gle/wvrFxJ2jiDjB44FE7.
-The business inquiry form prepares an email draft. Visitors choose to open their
-email app or copy the complete draft into webmail and send it. Company is optional
-on inquiries. This site itself does not submit, store, or subscribe visitors.
+Business inquiries link to the Google Form at https://forms.gle/FYoH5bHtyUDJnj6D7.
+Submissions are handled by Google Forms.
 Navigation and direct contact links remain available without JavaScript.
 
 Subscriptions go to Joe's existing Practical Data Modeling Substack, explicitly

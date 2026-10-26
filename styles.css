@@ -101,34 +101,20 @@ h4 { font-size: 17px; line-height: 1.4; margin: 0 0 12px; }
 .proposal-section > div > p { max-width: 450px; }
 details { font-size: 15px; margin-top: 28px; max-width: 450px; border-top: 1px solid var(--line); padding-top: 20px; }
 summary { font-weight: 700; cursor: pointer; }
-form { min-width: 0; }
-label { display: block; font-size: 14px; font-weight: 600; margin: 0 0 18px; }
-label span { color: var(--muted); font-weight: 400; }
-input, textarea { display: block; width: 100%; border: 1px solid #a5b6bf; border-radius: 0; background: var(--paper); padding: 12px; margin-top: 7px; font-size: 16px; color: var(--ink); }
-textarea { resize: vertical; }
 .form-heading { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; padding-bottom: 18px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
-form > .button { width: 100%; margin-top: 5px; }
 .form-note { font-size: 13px; line-height: 1.65; color: var(--muted); }
-.form-result { font-size: 14px; padding: 18px; border: 1px solid var(--line); margin-top: 20px; scroll-margin-top: 24px; }
-.form-result p { margin-top: 0; }
-.form-result textarea { min-height: 220px; font-size: 14px; }
-.form-result .draft-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
-.form-result .draft-status { margin: 16px 0 0; }
 .business { background: var(--brand); color: var(--paper); }
 .business > .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; }
 .business .eyebrow { color: #b3e8fa; }
-.business input, .business textarea { background: #ffffff0c; color: var(--paper); border-color: #90b9c7; }
-.business label span, .business .form-note { color: #d3e6ed; }
+.business .form-note { color: #d3e6ed; }
 .business .button.light { background: var(--paper); color: var(--brand); border-color: var(--paper); }
 .business .button.light:hover { background: #e0f3fb; }
 .business a:hover { color: #d3f2ff; }
 .business .contact-email { font-size: 17px; overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 5px; }
-.business .form-result { border-color: #90b9c7; }
+.business .form-heading { border-color: #90b9c7; }
 .business :focus-visible { outline-color: #8cdeff; }
-.deal-types { display: grid; margin: 35px 0; max-width: 430px; }
-.deal-types button { background: none; border: none; border-bottom: 1px solid #528b9f; padding: 15px 0; color: #d3e6ed; text-align: left; font-size: 15px; }
-.deal-types button.active { color: #fff; font-weight: 700; }
-.deal-types button::after { content: '↗'; float: right; padding-left: 12px; }
+.deal-types { display: grid; margin: 35px 0; padding: 0; max-width: 430px; list-style: none; }
+.deal-types li { border-bottom: 1px solid #528b9f; padding: 15px 0; color: #d3e6ed; font-size: 15px; }
 .newsletter { padding-top: 76px; padding-bottom: 76px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; border-bottom: 1px solid var(--line); }
 .newsletter p { margin-top: 0; }
 .newsletter .subscription-note { color: var(--muted); font-size: 14px; }
