@@ -110,7 +110,6 @@ summary { font-weight: 700; cursor: pointer; }
 .business .button.light { background: var(--paper); color: var(--brand); border-color: var(--paper); }
 .business .button.light:hover { background: #e0f3fb; }
 .business a:hover { color: #d3f2ff; }
-.business .contact-email { font-size: 17px; overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 5px; }
 .business .form-heading { border-color: #90b9c7; }
 .business :focus-visible { outline-color: #8cdeff; }
 .deal-types { display: grid; margin: 35px 0; padding: 0; max-width: 430px; list-style: none; }
