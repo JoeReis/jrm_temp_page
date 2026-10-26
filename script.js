@@ -1,10 +1,91 @@
 const menu = document.querySelector('.menu-toggle');
-menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));document.querySelector('#nav').classList.toggle('open',open);menu.textContent=open?'Close −':'Menu +';});
-document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>{menu.setAttribute('aria-expanded','false');document.querySelector('#nav').classList.remove('open');menu.textContent='Menu +';}));
-document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelectorAll('.product').forEach(p=>{p.hidden=b.dataset.filter!=='all'&&p.dataset.type!==b.dataset.filter;});}));
-let topic='Bulk books and team learning';
-document.querySelectorAll('[data-topic]').forEach(b=>{b.setAttribute('aria-pressed',String(b.classList.contains('active')));b.addEventListener('click',()=>{topic=b.dataset.topic;document.querySelectorAll('[data-topic]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});});});
-const recipient='joe@joereismedia.com';
-function draft(form,subject,body){const url='mailto:'+recipient+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);const result=form.querySelector('.form-result');result.replaceChildren();result.hidden=false;const note=document.createElement('span');note.textContent='Your draft is ready. Review it in your email app, then send when you’re ready.';const link=document.createElement('a');link.href=url;link.textContent='Open email draft ↗';const copy=document.createElement('button');copy.type='button';copy.textContent='Copy draft';copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('To: '+recipient+'\nSubject: '+subject+'\n\n'+body);copy.textContent='Copied';}catch{note.textContent='Copy this draft manually:';const area=document.createElement('textarea');area.value='To: '+recipient+'\nSubject: '+subject+'\n\n'+body;area.readOnly=true;result.append(area);area.select();}});result.append(note,link,copy);link.click();}
-for(const id of ['proposal-form','business-form'])document.getElementById(id).addEventListener('submit',e=>{e.preventDefault();const f=e.currentTarget;if(!f.reportValidity())return;const data=new FormData(f);const subject=id==='proposal-form'?'Book proposal: '+data.get('Working title'):'Practical Data Media: '+topic;const body='Hi Joe,\n\n'+[...data].map(([k,v])=>k+':\n'+v).join('\n\n');draft(f,subject,body);});
-document.querySelectorAll('[data-inquiry]').forEach(b=>b.addEventListener('click',()=>{const f=document.getElementById('business-form');topic=b.dataset.inquiry;document.querySelectorAll('[data-topic]').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});f.querySelector('textarea').value='I’m interested in '+b.dataset.inquiry+'. Please share the latest details.';document.getElementById('business').scrollIntoView();f.querySelector('input').focus({preventScroll:true});}));
+const nav = document.querySelector('#nav');
+
+function closeMenu() {
+  menu.setAttribute('aria-expanded', 'false');
+  nav.classList.remove('open');
+  menu.textContent = 'Menu +';
+}
+menu.hidden = false;
+document.documentElement.classList.add('js-nav');
+menu.addEventListener('click', () => {
+  const open = menu.getAttribute('aria-expanded') !== 'true';
+  menu.setAttribute('aria-expanded', String(open));
+  nav.classList.toggle('open', open);
+  menu.textContent = open ? 'Close −' : 'Menu +';
+});
+nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') {
+    closeMenu();
+    menu.focus();
+  }
+});
+
+let topic = 'Bulk books and team learning';
+const topicButtons = document.querySelectorAll('[data-topic]');
+topicButtons.forEach(button => button.addEventListener('click', () => {
+  topic = button.dataset.topic;
+  topicButtons.forEach(other => {
+    const selected = other === button;
+    other.classList.toggle('active', selected);
+    other.setAttribute('aria-pressed', String(selected));
+  });
+}));
+
+const recipient = 'joe@joereismedia.com';
+function prepareDraft(form, subject, body) {
+  const result = form.querySelector('.form-result');
+  result.replaceChildren();
+  const note = document.createElement('p');
+  note.textContent = 'Your email draft is ready. Nothing has been sent. Open your email app, or copy the draft into webmail.';
+
+  const draftLabel = document.createElement('label');
+  draftLabel.textContent = 'Prepared email';
+  const draftText = document.createElement('textarea');
+  draftText.readOnly = true;
+  draftText.rows = 9;
+  draftText.value = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
+  draftLabel.append(draftText);
+
+  const actions = document.createElement('div');
+  actions.className = 'draft-actions';
+  const emailLink = document.createElement('a');
+  emailLink.className = 'button' + (form.id === 'business-form' ? ' light' : '');
+  emailLink.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  emailLink.textContent = 'Open email app ↗';
+
+  const copy = document.createElement('button');
+  copy.type = 'button';
+  copy.className = emailLink.className;
+  copy.textContent = 'Copy draft';
+  const status = document.createElement('p');
+  status.className = 'draft-status';
+  status.setAttribute('role', 'status');
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(draftText.value);
+      status.textContent = 'Draft copied. Paste it into your email service, review it, and send it to Joe.';
+      copy.textContent = 'Copy again';
+    } catch {
+      draftText.focus();
+      draftText.select();
+      status.textContent = 'Automatic copying is unavailable. The draft is selected; use your device’s Copy command, then paste it into your email service.';
+    }
+  });
+  actions.append(emailLink, copy);
+  result.append(note, draftLabel, actions, status);
+  result.hidden = false;
+  result.focus();
+}
+
+document.getElementById('business-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const data = new FormData(form);
+  const subject = 'Practical Data Media: ' + topic;
+  const fields = [...data].filter(([, value]) => String(value).trim());
+  const body = 'Hi Joe,\n\n' + fields.map(([key, value]) => `${key}:\n${String(value).trim()}`).join('\n\n');
+  prepareDraft(form, subject, body);
+});
